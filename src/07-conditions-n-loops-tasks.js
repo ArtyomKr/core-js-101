@@ -305,8 +305,11 @@ function isCreditCardNumber(cnn) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const arr = `${num}`.split('');
+  const arrSum = arr.reduce((sum, item) => +item + sum, 0);
+  if (arrSum > 9) return +arrSum.toString(10)[0] + +arrSum.toString(10)[1];
+  return arrSum;
 }
 
 
@@ -356,8 +359,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
@@ -373,8 +376,17 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const elem = pathes[0].split('');
+  let common = '';
+  elem.forEach((letter) => {
+    const itemsWithLetter = pathes.filter((item) => item.indexOf(common + letter) === 0);
+    if (itemsWithLetter.length === pathes.length) common += letter;
+  });
+
+  if (!common.endsWith('/')) common = common.slice(0, common.lastIndexOf('/') + 1);
+
+  return common;
 }
 
 
